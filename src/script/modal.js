@@ -15,6 +15,9 @@ export function openPopup(evt) {
                 popups[className].querySelector('.popup__caption').textContent = evt.currentTarget.querySelector('.card__title').textContent;
             }
         }
+
+        nameInput.value = name.textContent;
+        jobInput.value = description.textContent;
     }
 
     document.addEventListener('keydown', closePopup);

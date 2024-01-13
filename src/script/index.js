@@ -24,9 +24,6 @@ const newCardForm = document.forms['add-place'];
 export const placeInput = newCardForm.elements['place-name'];
 export const linkInput = newCardForm.elements.link;
 
-nameInput.value = name.textContent;
-jobInput.value = description.textContent;
-
 profile.addEventListener( 'click', openPopup );
 
 profileForm.addEventListener( 'submit', handleFormSubmit );
