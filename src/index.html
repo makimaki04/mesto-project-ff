@@ -37,8 +37,8 @@
       <button type="button" class="popup__close"></button>
       <h3 class="popup__title">Редактировать профиль</h3>
       <form class="popup__form" name="edit-profile">
-        <input type="text" name="name" class="popup__input popup__input_type_name" placeholder="Имя" required>
-        <input type="text" name="description" class="popup__input popup__input_type_description" placeholder="Занятие" required>
+        <input type="text" name="name" class="popup__input popup__input_type_name" placeholder="Имя" maxlength="30" required>
+        <input type="text" name="description" class="popup__input popup__input_type_description" placeholder="Занятие" maxlength="30" required >
         <button type="submit" class="button popup__button">Сохранить</button>
       </form>
     </div>
@@ -65,7 +65,7 @@
 
 <template id="card-template">
   <li class="places__item card">
-    <img class="card__image" src="" alt="" />
+    <img class="card__image" src="" alt="" onerror=" this.src='https://static.tildacdn.com/stor3066-6637-4635-b235-306432393236/28942791.jpg'"/>
     <button type="button" class="card__delete-button"></button>
     <div class="card__description">
       <h2 class="card__title">

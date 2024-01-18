@@ -1,4 +1,4 @@
-import { cardElement } from "./index.js";
+import { cardElement, imgPopup } from "./index.js";
 import { openPopup } from "./modal.js";
 
 export function createCard (img, title, deleteCard, likeCard) {
@@ -14,11 +14,16 @@ export function createCard (img, title, deleteCard, likeCard) {
     
     deleteButton.addEventListener( 'click', () => {
         deleteCard(card);
-    } )
+    } );
 
     likeButton.addEventListener( 'click', likeCard );
 
-    card.addEventListener( 'click', openPopup );
+    cardImg.addEventListener( 'click', () => {
+        openPopup(imgPopup);
+        imgPopup.querySelector('.popup__image').src = cardImg.src;
+        imgPopup.querySelector('.popup__image').alt = cardImg.alt;
+        imgPopup.querySelector('.popup__caption').textContent = cardTitle.textContent;
+    } );
 
     return card;
 }
