@@ -1,7 +1,6 @@
 import { cardElement, imgPopup } from "./index.js";
-import { openPopup } from "./modal.js";
 
-export function createCard (img, title, deleteCard, likeCard) {
+export function createCard (img, title, deleteCard, likeCard, openPopup) {
     const card = cardElement.cloneNode(true);
     const deleteButton = card.querySelector('.card__delete-button');
     const cardImg = card.querySelector('.card__image');
