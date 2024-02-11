@@ -77,3 +77,110 @@ function toggleButtonState (inputList, buttonElement, validationConfig) {
         buttonElement.classList.remove(`${validationConfig.inactiveButtonClass}`);
     }
 }
+<<<<<<< HEAD
+=======
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// function checkInputValidity(formElement, inputElement, validationConfig) {
+//     if (!inputElement.validity.valid) {
+//         showErrorMessage(formElement, inputElement, validationConfig, inputElement.validationMessage);
+//     } else {
+//         hideErrorMessage(formElement, inputElement, validationConfig);
+//     }
+// }
+
+// function showErrorMessage(formElement, inputElement, validationConfig, errorMessage) {
+//     const errorElement = formElement.querySelector(`.${inputElement.name}__error`);
+
+//     inputElement.classList.add(`${validationConfig.inputErrorClass}`);
+//     errorElement.textContent = errorMessage;
+//     errorElement.classList.add(`${validationConfig.errorClass}`);
+// }
+
+// function hideErrorMessage(formElement, inputElement, validationConfig) {
+//     const errorElement = formElement.querySelector(`.${inputElement.name}__error`);
+
+//     inputElement.classList.remove(`${validationConfig.inputErrorClass}`);
+//     errorElement.textContent = '';
+//     errorElement.classList.remove(`${validationConfig.errorClass}`);
+// }
+
+// function hasInvalidInput(inputList) {
+//     return inputList.some(inputElement => {
+//         return !inputElement.validity.valid;
+//     })
+// }
+
+// function toggleButtonState(inputElement, buttonElement, validationConfig) {
+//     if (hasInvalidInput(inputElement)) {
+//         buttonElement.classList.add(`${validationConfig.inactiveButtonClass}`);
+//     } else 
+//     buttonElement.classList.remove(`${validationConfig.inactiveButtonClass}`);
+// }
+
+// function clearValidation(formElement, validationConfig) {
+//     Array.from(formElement.querySelectorAll(`${validationConfig.inputElement}`)).forEach(inputElement => {
+//         inputElement.classList.remove(`${validationConfig.inputErrorClass}`);
+//     })
+//     Array.from(formElement.querySelectorAll(`${validationConfig.popupErrorElement}`)).forEach(errorElement => {
+//         errorElement.classList.remove(`${validationConfig.errorClass}`);
+//     })
+//     formElement.querySelector(`${validationConfig.submitButtonElement}`).classList.add(`${validationConfig.inactiveButtonClass}`);
+// }
+
+// function setEvetenListeners(formElement, validationConfig) {
+//     const inputList = Array.from(formElement.querySelectorAll(`${validationConfig.inputElement}`));
+//     const buttonElement = formElement.querySelector(`${validationConfig.submitButtonElement}`);
+
+//     clearValidation(formElement, validationConfig);
+//     inputList.forEach(inputElement => {
+//         inputElement.addEventListener('input', () => {
+//             checkInputValidity(formElement, inputElement,validationConfig);
+//             toggleButtonState(inputList, buttonElement);
+//         })
+//     })
+// }
+
+// export function enebaleValidation(validationConfig) {
+//     const formList = Array.from(document.querySelectorAll(`${validationConfig.formElement}`));
+
+//     formList.forEach(formElement => {
+//         setEvetenListeners(formElement, validationConfig);
+//         formElement.addEventListener('submit', (formElement) => {
+//             formElement.preventDefault();
+//         })
+//     })
+// }
+>>>>>>> 1879e7efb00c96d28a066a24e9c27077bd2cf585
