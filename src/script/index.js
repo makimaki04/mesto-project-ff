@@ -2,6 +2,7 @@ import '/src/pages/index.css';
 import { createCard, deleteCard, likeCard } from "./card.js";
 import { openPopup, closePopup } from "./modal.js";
 import { initialCards } from "./cards.js";
+import { enebaleValidation, clearValidation } from './validation.js';
 
 export const cardList = document.querySelector('.places__list');
 const cardTemplate = document.querySelector('#card-template').content;
@@ -21,6 +22,15 @@ const newCardForm = document.forms['add-place'];
 const placeInput = newCardForm.elements['place-name'];
 const linkInput = newCardForm.elements.link;
 const popups = document.querySelectorAll('.popup');
+export const validationConfig = {
+    formElement: '.popup__form',
+    inputElement: '.popup__input',
+    submitButtonElement: '.popup__button',
+    inactiveButtonClass: 'popup__button_disabled',
+    inputErrorClass: 'popup__input_type_error',
+    popupErrorElement: 'popup__error ',
+    errorClass: 'popup__error_visible'
+};
 
 popups.forEach( item => {
     item.classList.add('popup_is-animated');
@@ -28,13 +38,16 @@ popups.forEach( item => {
 
 profileEditBtn.addEventListener( 'click', () => {
     nameInput.value = name.textContent; 
-    jobInput.value = description.textContent; 
-
+    jobInput.value = description.textContent;
+    
     openPopup(profilePopup);
+    clearValidation(profileForm, validationConfig);
 } );
 
 profileAddBtn.addEventListener( 'click', () => {
     openPopup(popupAddCard);
+    clearValidation(newCardForm, validationConfig);
+
     placeInput.value = '';
     linkInput.value = '';
 } );
@@ -45,28 +58,31 @@ popupCloseBtns.forEach( item => {
     } )
 } )
 
-profileForm.addEventListener( 'submit', handleFormSubmit );
+profileForm.addEventListener( 'submit', handleProfileFormSubmit );
 
-newCardForm.addEventListener( 'submit', newCardFormSubmit );
+newCardForm.addEventListener( 'submit', handleNewCardFormSubmit );
 
-function handleFormSubmit(evt) {
+function handleProfileFormSubmit(evt) {
     name.textContent = nameInput.value;
     description.textContent = jobInput.value;
-
+    
     evt.preventDefault();
     closePopup( evt.target.closest('.popup') );
 }
 
-function newCardFormSubmit(evt) {
+function handleNewCardFormSubmit(evt) {
     evt.preventDefault();
     cardList.prepend( createCard(linkInput.value, placeInput.value, deleteCard, likeCard, openPopup) );
 
     placeInput.value = '';
     linkInput.value = '';
-
+    
+    clearValidation(newCardForm, validationConfig);
     closePopup( evt.target.closest('.popup') );
 }
 
 initialCards.forEach( item => {
     cardList.append( createCard( item.link, item.name, deleteCard, likeCard, openPopup ) );
 } );
+
+enebaleValidation(validationConfig);
