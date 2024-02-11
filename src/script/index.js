@@ -39,7 +39,7 @@ popups.forEach( item => {
 profileEditBtn.addEventListener( 'click', () => {
     nameInput.value = name.textContent; 
     jobInput.value = description.textContent;
-    
+        
     openPopup(profilePopup);
     clearValidation(profileForm, validationConfig);
 } );
