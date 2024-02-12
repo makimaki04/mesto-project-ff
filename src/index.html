@@ -14,7 +14,7 @@
   </header>
   <main class="content">
     <section class="profile page__section">
-      <div class="profile__image"></div>
+      <img src="<%=require('./images/avatar.jpg')%>" class="profile__image">
       <div class="profile__info">
         <h1 class="profile__title">Жак-Ив Кусто</h1>
         <button class="profile__edit-button" type="button"></button>
@@ -65,6 +65,14 @@
       <p class="popup__caption"></p>
     </div>
   </div>
+    <div class="popup popup_card-delete">
+      <div class="popup__content">
+        <h3 class="popup__title">Вы уверены?</h3>
+        <button type="button" class="popup__close"></button>
+        <button type="button" class="button popup__button">Да</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 <template id="card-template">
@@ -72,9 +80,11 @@
     <img class="card__image" src="" alt="" onerror=" this.src='https://static.tildacdn.com/stor3066-6637-4635-b235-306432393236/28942791.jpg'"/>
     <button type="button" class="card__delete-button"></button>
     <div class="card__description">
-      <h2 class="card__title">
-      </h2>
-      <button type="button" class="card__like-button"></button>
+      <h2 class="card__title"></h2>
+      <div class="card__like-button-container">
+        <button type="button" class="card__like-button"></button>
+        <span class="card__like-counter"></span>
+      </div>
     </div>
   </li>
 </template>

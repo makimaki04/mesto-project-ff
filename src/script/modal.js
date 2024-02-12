@@ -2,6 +2,7 @@ export function openPopup(popup) {
     popup.classList.add('popup_is-opened');
     popup.addEventListener('click', closePopupOverlayClick);
     document.addEventListener( 'keydown', closePopupWithKey);
+
 }
 
 export function closePopup(popup) {
@@ -18,5 +19,14 @@ function closePopupWithKey(evt) {
 function closePopupOverlayClick(evt) {
     if ( evt.target.classList.contains('popup_is-opened') ) {
         evt.currentTarget.classList.remove('popup_is-opened');
-    }openPopup
+    }
+}
+
+export function openCardDeletePopup(popup, card, cardId, deleteCard) {
+    openPopup(popup);
+    
+    popup.querySelector('.popup__button').addEventListener('click', () => {
+        deleteCard(card, cardId);
+        closePopup(popup);
+    })
 }
