@@ -14,7 +14,9 @@
   </header>
   <main class="content">
     <section class="profile page__section">
-      <img src="<%=require('./images/avatar.jpg')%>" class="profile__image">
+      <div class="profile__image-container">
+        <img src="<%=require('./images/avatar.jpg')%>" class="profile__image">
+      </div>
       <div class="profile__info">
         <h1 class="profile__title">Жак-Ив Кусто</h1>
         <button class="profile__edit-button" type="button"></button>
@@ -70,6 +72,17 @@
         <h3 class="popup__title">Вы уверены?</h3>
         <button type="button" class="popup__close"></button>
         <button type="button" class="button popup__button">Да</button>
+      </div>
+    </div>
+    <div class="popup popup_change-avatar">
+      <div class="popup__content">
+        <button type="button" class="popup__close"></button>
+        <h3 class="popup__title">Обновить аватар</h3>
+        <form class="popup__form" name="avatar-change" novalidate>
+          <input type="url" name="avatar-link" class="popup__input popup__input_type_avatar" placeholder="Ссылка на аватар">
+          <span class="popup__avatar-link_error popup__error"></span>
+          <button type="submit" class="button popup__button">Сохранить</button>
+        </form>
       </div>
     </div>
   </div>

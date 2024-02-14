@@ -52,3 +52,9 @@
   top: 107px;
   left: 0;
 }
+
+.popup__description_error, .popup__avatar-link_error{
+  position: absolute;
+  top: 50px;
+  left: 0;
+}
