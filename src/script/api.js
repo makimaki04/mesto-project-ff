@@ -1,3 +1,5 @@
+import { checkResponse } from "./utils";
+
 export const config = {
   baseUrl: "https://mesto.nomoreparties.co/v1/wff-cohort-6",
   headers: {
@@ -9,33 +11,13 @@ export const config = {
 export const getUserData = () => {
   return fetch(`${config.baseUrl}/users/me`, {
     headers: config.headers,
-  })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  }).then(checkResponse);
 };
 
 export const getInitialCards = () => {
   return fetch(`${config.baseUrl}/cards`, {
     headers: config.headers,
-  })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  }).then(checkResponse);
 };
 
 export const editProfile = (name, about) => {
@@ -46,15 +28,7 @@ export const editProfile = (name, about) => {
       name,
       about,
     }),
-  })
-    .then((res) => {
-      if (!res.ok) {
-        return Promise.reject(`Ошибка: ${res.status}`);
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  }).then(checkResponse);
 };
 
 export const addNewCard = (name, link) => {
@@ -65,66 +39,28 @@ export const addNewCard = (name, link) => {
       name,
       link,
     }),
-  })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  }).then(checkResponse);
 };
 
 export const deleteCardById = (cardId) => {
   return fetch(`${config.baseUrl}/cards/${cardId}`, {
     method: "DELETE",
     headers: config.headers,
-  })
-    .then((res) => {
-      if (!res.ok) {
-        return Promise.reject(`Ошибка: ${res.status}`);
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  }).then(checkResponse);
 };
 
 export const putLikeCard = (cardId) => {
   return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
     method: "PUT",
     headers: config.headers,
-  })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  }).then(checkResponse);
 };
 
 export const romoveLikeCard = (cardId) => {
   return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
     method: "DELETE",
     headers: config.headers,
-  })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  }).then(checkResponse);
 };
 
 export const changeAvatar = (avatar) => {
@@ -134,13 +70,5 @@ export const changeAvatar = (avatar) => {
     body: JSON.stringify({
       avatar,
     }),
-  })
-    .then((res) => {
-      if (!res.ok) {
-        return Promise.reject(`Ошибка: ${res.status}`);
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  }).then(checkResponse);
 };

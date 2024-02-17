@@ -85,6 +85,7 @@ export function clearValidation(formElement, validationConfig) {
   );
 
   buttonElement.classList.add(`${validationConfig.inactiveButtonClass}`);
+  buttonElement.setAttribute("disabled", "");
   inputList.forEach((inputElement) => {
     const errorElement = formElement.querySelector(
       `.popup__${inputElement.name}_error`
@@ -103,7 +104,9 @@ function hasInvalidValidation(inputList) {
 function toggleButtonState(inputList, buttonElement, validationConfig) {
   if (hasInvalidValidation(inputList)) {
     buttonElement.classList.add(`${validationConfig.inactiveButtonClass}`);
+    buttonElement.setAttribute("disabled", "");
   } else {
     buttonElement.classList.remove(`${validationConfig.inactiveButtonClass}`);
+    buttonElement.removeAttribute("disabled");
   }
 }

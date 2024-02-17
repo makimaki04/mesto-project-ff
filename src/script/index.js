@@ -1,5 +1,5 @@
 import "/src/pages/index.css";
-import { createCard, deleteCard, likeCard } from "./card.js";
+import { createCard, deleteCard, likeCard, clickImage } from "./card.js";
 import { openPopup, closePopup } from "./modal.js";
 import { enebaleValidation, clearValidation } from "./validation.js";
 import {
@@ -10,15 +10,11 @@ import {
   changeAvatar,
 } from "./api.js";
 
-export const cardList = document.querySelector(".places__list");
-const cardTemplate = document.querySelector("#card-template").content;
-export const cardElement = cardTemplate.querySelector(".card");
+const cardList = document.querySelector(".places__list");
 const profileEditBtn = document.querySelector(".profile__edit-button");
 const profileAddBtn = document.querySelector(".profile__add-button");
-export const profilePopup = document.querySelector(".popup_type_edit");
-export const popupAddCard = document.querySelector(".popup_type_new-card");
-export const imgPopup = document.querySelector(".popup_type_image");
-export const popupDeleteCard = document.querySelector(".popup_card-delete");
+const profilePopup = document.querySelector(".popup_type_edit");
+const popupAddCard = document.querySelector(".popup_type_new-card");
 const avatarChangePopup = document.querySelector(".popup_change-avatar");
 const popupCloseBtns = document.querySelectorAll(".popup__close");
 const profileForm = document.forms["edit-profile"];
@@ -69,7 +65,7 @@ const initialCards = (cards, userData) => {
       user: userData._id,
       cardID: card._id,
     };
-    cardList.append(createCard(cardConfig, deleteCard, likeCard, openPopup));
+    cardList.append(createCard(cardConfig, deleteCard, likeCard, clickImage));
   });
 };
 
@@ -89,8 +85,7 @@ profileAddBtn.addEventListener("click", () => {
   openPopup(popupAddCard);
   clearValidation(newCardForm, validationConfig);
 
-  placeInput.value = "";
-  linkInput.value = "";
+  newCardForm.reset();
 });
 
 popupCloseBtns.forEach((item) => {
@@ -104,20 +99,26 @@ profileForm.addEventListener("submit", handleProfileFormSubmit);
 newCardForm.addEventListener("submit", handleNewCardFormSubmit);
 
 function handleProfileFormSubmit(evt) {
-  renderLoading(true, evt.target.querySelector(".popup__button"));
-  name.textContent = nameInput.value;
-  description.textContent = jobInput.value;
-
-  editProfile(nameInput.value, jobInput.value).finally(() => {
-    renderLoading(false, evt.target.querySelector(".popup__button"));
-  });
   evt.preventDefault();
-  closePopup(evt.target.closest(".popup"));
+  renderLoading(true, evt.submitter);
+  editProfile(nameInput.value, jobInput.value)
+    .then(() => {
+      name.textContent = nameInput.value;
+      description.textContent = jobInput.value;
+
+      closePopup(evt.target.closest(".popup"));
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      renderLoading(false, evt.submitter);
+    });
 }
 
 function handleNewCardFormSubmit(evt) {
   evt.preventDefault();
-  renderLoading(true, evt.target.querySelector(".popup__button"));
+  renderLoading(true, evt.submitter);
   addNewCard(placeInput.value, linkInput.value)
     .then((card) => {
       const cardConfig = {
@@ -128,20 +129,19 @@ function handleNewCardFormSubmit(evt) {
         user: card.owner._id,
         cardID: card._id,
       };
-      cardList.prepend(createCard(cardConfig, deleteCard, likeCard, openPopup));
+      cardList.prepend(
+        createCard(cardConfig, deleteCard, likeCard, clickImage)
+      );
+      newCardForm.reset();
+      clearValidation(newCardForm, validationConfig);
+      closePopup(evt.target.closest(".popup"));
     })
     .catch((err) => {
       console.log(err);
     })
     .finally(() => {
-      renderLoading(false, evt.target.querySelector(".popup__button"));
+      renderLoading(false, evt.submitter);
     });
-
-  placeInput.value = "";
-  linkInput.value = "";
-
-  clearValidation(newCardForm, validationConfig);
-  closePopup(evt.target.closest(".popup"));
 }
 
 function renderLoading(isLoading, button) {
@@ -165,14 +165,20 @@ avatarChangeForm.addEventListener("submit", changeAvatarFormSubmit);
 
 function changeAvatarFormSubmit(evt) {
   evt.preventDefault();
-  renderLoading(true, evt.target.querySelector(".popup__button"));
 
-  avatar.src = avatarLink.value;
+  renderLoading(true, evt.submitter);
 
-  changeAvatar(avatarLink.value).finally(() => {
-    renderLoading(false, evt.target.querySelector(".popup__button"));
-  });
-  closePopup(evt.target.closest(".popup"));
+  changeAvatar(avatarLink.value)
+    .then(() => {
+      avatar.src = avatarLink.value;
+      closePopup(evt.target.closest(".popup"));
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      renderLoading(false, evt.submitter);
+    });
 }
 
 enebaleValidation(validationConfig);
