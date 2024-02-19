@@ -1,13 +1,7 @@
-import { deleteCardById, putLikeCard, romoveLikeCard } from "./api.js";
-import { closePopup, openPopup } from "./modal.js";
+import { putLikeCard, romoveLikeCard } from "./api.js";
 
 const cardTemplate = document.querySelector("#card-template").content;
 const cardElement = cardTemplate.querySelector(".card");
-const imgPopup = document.querySelector(".popup_type_image");
-const imgPopupPicture = imgPopup.querySelector(".popup__image");
-const imgPopupCaption = imgPopup.querySelector(".popup__caption");
-const popupDeleteCard = document.querySelector(".popup_card-delete");
-const popupDeleteCardBtn = popupDeleteCard.querySelector(".popup__button");
 
 export function createCard(cardConfig, deleteCard, likeCard, clickImage) {
   const card = cardElement.cloneNode(true);
@@ -45,31 +39,6 @@ export function createCard(cardConfig, deleteCard, likeCard, clickImage) {
   });
 
   return card;
-}
-
-export function clickImage(link, alt, caption) {
-  openPopup(imgPopup);
-  imgPopupPicture.src = link;
-  imgPopupPicture.alt = alt;
-  imgPopupCaption.textContent = caption;
-}
-
-export function deleteCard(card, cardId) {
-  openPopup(popupDeleteCard);
-
-  const confirmDelete = () => {
-    card.remove();
-    deleteCardById(cardId)
-      .then(() => {
-        closePopup(popupDeleteCard);
-        popupDeleteCardBtn.removeEventListener("click", confirmDelete);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  popupDeleteCardBtn.addEventListener("click", confirmDelete);
 }
 
 export function likeCard(likeButton, cardId, likeCount) {

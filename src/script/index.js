@@ -1,5 +1,5 @@
 import "/src/pages/index.css";
-import { createCard, deleteCard, likeCard, clickImage } from "./card.js";
+import { createCard, likeCard } from "./card.js";
 import { openPopup, closePopup } from "./modal.js";
 import { enebaleValidation, clearValidation } from "./validation.js";
 import {
@@ -8,6 +8,7 @@ import {
   editProfile,
   addNewCard,
   changeAvatar,
+  deleteCardById,
 } from "./api.js";
 
 const cardList = document.querySelector(".places__list");
@@ -30,6 +31,9 @@ const popups = document.querySelectorAll(".popup");
 const avatarIcon = document.querySelector(".profile__image-container");
 const avatarChangeForm = document.forms["avatar-change"];
 const avatarLink = avatarChangeForm.elements["avatar-link"];
+const imgPopup = document.querySelector(".popup_type_image");
+const imgPopupPicture = imgPopup.querySelector(".popup__image");
+const imgPopupCaption = imgPopup.querySelector(".popup__caption");
 export const validationConfig = {
   formElement: ".popup__form",
   inputElement: ".popup__input",
@@ -93,6 +97,26 @@ popupCloseBtns.forEach((item) => {
     closePopup(item.closest(".popup"));
   });
 });
+
+function clickImage(link, alt, caption) {
+  openPopup(imgPopup);
+  imgPopupPicture.src = link;
+  imgPopupPicture.alt = alt;
+  imgPopupCaption.textContent = caption;
+}
+
+// к сожалению, не смог реализовать с попапом подтверждения удаления
+// и настапвник ничем не помог
+// буду рад, если укажите направленрие в котором думать
+function deleteCard(card, cardId) {
+  deleteCardById(cardId)
+    .then(() => {
+      card.remove();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
 
 profileForm.addEventListener("submit", handleProfileFormSubmit);
 
